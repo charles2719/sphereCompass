@@ -61,7 +61,7 @@ p_wfs0.set_Lambda(0.7)
 p_wfs0.set_gsmag(6.)
 p_wfs0.set_optthroughput(0.5)       # still unknown
 p_wfs0.set_zerop(1e11)
-p_wfs0.set_noise(0.4)
+p_wfs0.set_noise(0.2)
 p_wfs0.set_fstop("round")
 rMod = 20.                           # Modulation radius, in lam/D units
 nbPtMod = int(np.ceil(int(rMod * 2 * 3.141592653589793) / 4.) * 4)
@@ -88,7 +88,7 @@ p_wfs1.set_Lambda(1.2)               # pyramid wavelength
 p_wfs1.set_gsmag(6.)                 # Guide star magnitude
 p_wfs1.set_optthroughput(0.5)        # Optical throughput coefficient
 p_wfs1.set_zerop(1.e11)
-p_wfs1.set_noise(0.4)
+p_wfs1.set_noise(0.2)
 p_wfs1.set_fstop("round")
 rMod = 3.                            # Modulation radius, in lam/D units
 nbPtMod = int(np.ceil(int(rMod * 2 * 3.141592653589793) / 4.) * 4)
