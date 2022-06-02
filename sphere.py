@@ -13,10 +13,10 @@ layout = "layoutDeCharlesSPHERE" # Reloads custom display layout from sphere.are
 
 # loop
 p_loop = conf.Param_loop()
-
 p_loop.set_niter(5000)          # number of loop iterations
 p_loop.set_ittime(1./1380.)     # assuming loop at 1.38 kHz
 p_loop.set_devices([0, 1, 2, 3])
+
 # geom
 p_geom = conf.Param_geom()
 p_geom.set_pupdiam(400)
@@ -24,7 +24,6 @@ p_geom.set_zenithangle(0.)
 
 # tel
 p_tel = conf.Param_tel()
-
 p_tel.set_diam(8.0)            # VLT diameter
 p_tel.set_cobs(0.14)           # central obstruction
 p_tel.set_type_ap("VLT")       # VLT pupil
@@ -33,24 +32,24 @@ p_tel.set_t_spiders(0.00625)
 
 # atmos
 p_atmos = conf.Param_atmos()
-
 p_atmos.set_r0(0.14)       # Fried parameters @ 500 nm
 p_atmos.set_nscreens(1)    # Number of layers
 p_atmos.set_frac([1.0])    # Fraction of atmosphere (100% = 1)
 p_atmos.set_alt([0.0])     # Altitude(s) in meters
 p_atmos.set_windspeed([8]) # wind speed of layer(s) in m/s
 p_atmos.set_winddir([45])  # wind direction in degrees
-p_atmos.set_L0([25])       # in meters 
+p_atmos.set_L0([25])       # in meters
 
 # target
 p_target = conf.Param_target()
 p_targets = [p_target]
+
 p_target.set_xpos(0.)
 p_target.set_ypos(0.)
 p_target.set_Lambda(1.65) # H Band
 p_target.set_mag(6.)
 
-# wfs (waiting for spatial fieltering implementation)
+# wfs
 p_wfs0 = conf.Param_wfs()
 p_wfss = [p_wfs0]
 
@@ -63,15 +62,24 @@ p_wfs0.set_xpos(0.)
 p_wfs0.set_ypos(0.)
 p_wfs0.set_Lambda(0.7)        # SAXO SH bandwidth : [475, 900] nm
 p_wfs0.set_gsmag(6.)
-p_wfs0.set_optthroughput(0.5) # still unknown
+p_wfs0.set_optthroughput(0.1) # still unknown
 p_wfs0.set_zerop(1e11)        # zero point for guide star magnitude
 p_wfs0.set_noise(0.2)         # -1 = No noise
 p_wfs0.set_atmos_seen(1)
+p_wfs0.set_fstop("round")
+#p_wfs0.set_fssize(0.79412)   # 1.1*lambda/dSubap
+#p_wfs0.set_fssize(0.8663)    # 1.2*lambda/dSubap
+#p_wfs0.set_fssize(0.9385)    # 1.3*lambda/dSubap
+#p_wfs0.set_fssize(1.0107)    # 1.4*lambda/dSubap
+p_wfs0.set_fssize(1.0829)     # 1.5*lambda/dSubap
+#p_wfs0.set_fssize(1.227275)  # 1.7*lambda/dSubap
+#p_wfs0.set_fssize(1.44385)   # 2*lambda/dSubap
 
 # dm (waiting for the custom HODM)
 p_dm0 = conf.Param_dm()
 p_dm1 = conf.Param_dm()
 p_dms = [p_dm0, p_dm1]
+
 p_dm0.set_type("pzt")
 nact = 41
 p_dm0.set_nact(nact)
@@ -82,10 +90,12 @@ p_dm0.set_unitpervolt(1.)
 p_dm0.set_push4imat(0.001)
 #p_dm0.set_margin_out(0.3)
 
+# tip-tilt
 p_dm1.set_type("tt")
 p_dm1.set_alt(0.)
 p_dm1.set_unitpervolt(1.)
 p_dm1.set_push4imat(0.005)
+
 # centroiders
 p_centroider0 = conf.Param_centroider()
 p_centroiders = [p_centroider0]
