@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-
 @author: FV
 """
 
@@ -48,18 +47,18 @@ p_target.set_ypos(0.)
 p_target.set_Lambda(1.65) # H Band
 p_target.set_mag(6.)
 
-# wfs
+# wfs : SAXO SH but a pyramid
 p_wfs0 = conf.Param_wfs()
 
 p_wfs0.set_type("pyrhr")
 p_wfs0.set_nxsub(50)                # TBC Number of pixels along the pupil diameter, NB. need more subaperture than nactu.
-p_wfs0.set_fssize(2.5)              # Size of the field stop
+p_wfs0.set_fssize(4)                # Size of the field stop
 p_wfs0.set_fracsub(0.0001)          # was 0.8 before Vincent
 p_wfs0.set_xpos(0.)
 p_wfs0.set_ypos(0.)
 p_wfs0.set_Lambda(0.7)
 p_wfs0.set_gsmag(6.)
-p_wfs0.set_optthroughput(0.5)       # still unknown
+p_wfs0.set_optthroughput(0.1)       # still unknown
 p_wfs0.set_zerop(1e11)
 p_wfs0.set_noise(0.2)
 p_wfs0.set_fstop("round")
@@ -72,10 +71,7 @@ p_wfs0.set_atmos_seen(1)             # If False, the WFS don’t see the atmosph
 p_wfs0.set_dms_seen(np.array([0,2])) # If False, the WFS don’t see the atmosphere layers
 
 
-
-
-
-# wfs
+# wfs : near infrared pyramid
 p_wfs1 = conf.Param_wfs()
 
 p_wfs1.set_type("pyrhr")
@@ -94,20 +90,19 @@ rMod = 3.                            # Modulation radius, in lam/D units
 nbPtMod = int(np.ceil(int(rMod * 2 * 3.141592653589793) / 4.) * 4)
 p_wfs1.set_pyr_npts(nbPtMod)         # Number of modulation point along the circle
 p_wfs1.set_pyr_ampl(rMod)            # Pyramid modulation amplitude (pyramid only)
-p_wfs1.set_pyr_pup_sep(50)           # separation between the 4 images of the pyramid 
+p_wfs1.set_pyr_pup_sep(50)           # separation between the 4 images of the pyramid
 p_wfs1.set_atmos_seen(1)             # If False, the WFS don’t see the atmosphere layers
 
 
 p_wfss = [p_wfs0, p_wfs1]
 
 
-# dm
+# dm (waiting for the custom HODM)
 p_dm0 = conf.Param_dm()
 p_dm1 = conf.Param_dm()
 p_dm2 = conf.Param_dm()
 
 p_dm0.set_type("pzt")
-# nact = p_wfs0.nxsub + 1
 nact = 41
 p_dm0.set_nact(nact)
 p_dm0.set_alt(0.)           # Layers altitudes
@@ -117,9 +112,7 @@ p_dm0.set_unitpervolt(1.0)
 p_dm0.set_push4imat(1.0e-3) # Nominal voltage for imat = integration matrix = response matrix
 p_dm0.set_margin_out(0.3)   # pour adapter la taille de la pupille du DM a celle du WFS
 
-
 p_dm1.set_type("pzt")
-# nact = p_wfs0.nxsub + 1
 nact = 24
 p_dm1.set_nact(nact)
 p_dm1.set_alt(0.)           # Layers altitudes
@@ -129,10 +122,9 @@ p_dm1.set_unitpervolt(1.0)
 p_dm1.set_push4imat(1.0e-3) # Nominal voltage for imat = integration matrix = response matrix
 p_dm1.set_margin_out(0.3)   # pour adapter la taille de la pupille du DM a celle du WFS
 
-
 p_dm2.set_type("tt")
 p_dm2.set_alt(0.)
-p_dm2.set_unitpervolt(1.) # Influence function sensitivity
+p_dm2.set_unitpervolt(1.)   # Influence function sensitivity
 p_dm2.set_push4imat(0.005)
 
 p_dms = [p_dm0, p_dm1, p_dm2]
